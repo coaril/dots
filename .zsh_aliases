@@ -1,0 +1,36 @@
+# ~/.zsh_aliases
+
+# Any
+alias cd='z'
+alias jdk='sudo update-alternatives --config java'
+alias fetch='fastfetch'
+alias vim='nvim'
+alias bat='upower -d'
+
+# Keybinds
+alias f='fastfetch'
+alias s='btop'
+alias c='clear'
+alias l='eza -l'
+alias t='tmux a || tmux'
+alias u='sudo dnf upgrade && sudo dnf autoremove'
+
+# Eza
+alias ls='eza'
+alias la='eza -la'
+alias ll='eza -l'
+
+# Python
+alias py='python'
+alias python='python3'
+
+# Git
+alias gs='git status --short'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gu='git pull'
+alias gl='git log --oneline'
+alias gb='git branch'
+alias gi='git init'
+alias gcl='git clone'
