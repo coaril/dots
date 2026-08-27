@@ -23,23 +23,12 @@ compinit
 # Load custom aliases
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 
-# ===
-# SSH
-# ===
-
-# To disable MOTD's (Ubuntu):
-# sudo vim /etc/pam.d/sshd
-# sudo vim /etc/pam.d/login
-
 # ==========
 # Enviroment
 # ==========
 
 export PATH="$HOME/.local/bin:$PATH"
-
 export EDITOR=vim
-
-# Locale
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
