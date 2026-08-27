@@ -5,13 +5,13 @@ set -euo pipefail
 GREEN="\e[1;32m"
 RESET="\e[0m"
 
-echo -e "[i]${GREEN} Updating system packages ...${RESET}\n"
+echo -e "[i]${GREEN} Updating system packages:${RESET}\n"
 
 sudo dnf upgrade -y
 sudo dnf autoremove -y
 
 echo -e """
-[i]${GREEN} Updating user packages ...${RESET}
+[i]${GREEN} Updating user packages:${RESET}
 """
 
 # sudo flatpak update --system -y
