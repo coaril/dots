@@ -17,9 +17,6 @@ export PATH="/home/me/.bun/bin:$PATH"
 # Zoxide
 eval "$(zoxide init zsh)"
 
-# Rust
-. "$HOME/.cargo/env"
-
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
