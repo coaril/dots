@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eu
 
 GREEN="\e[1;32m"
 RESET="\e[0m"
