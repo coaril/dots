@@ -10,9 +10,7 @@ echo -e "[i]${GREEN} Updating system packages:${RESET}\n"
 sudo dnf upgrade -y
 sudo dnf autoremove -y
 
-echo -e """
-[i]${GREEN} Updating user packages:${RESET}
-"""
+echo -e "[i]${GREEN} Updating user packages:${RESET}"
 
 # sudo flatpak update --system -y
 brew update
