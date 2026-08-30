@@ -63,7 +63,7 @@ Follow common Apple/Google modern web and accessibility guidelines mapped to Tai
 - **Pushing:** Never run `git push` under any circumstances. Pushing changes is strictly reserved for the user.
 - **Commit Format:** When committing, follow semantic commit conventions:
   - Semantic title in lowercase (e.g., `feat: ...`, `fix: ...`, `refactor: ...`)
-  - Bulleted body where each bullet point has the first letter capitalized and no trailing period.
+  - Bulleted body if needed where each bullet point has the first letter capitalized and no trailing period.
 
 ### Example
 
@@ -72,5 +72,5 @@ git commit -m "feat: add user authentication
 
 - Implement JWT token verification
 - Add form validation
-- Connect user auth service"
+...
 ```
