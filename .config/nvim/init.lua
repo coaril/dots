@@ -3,8 +3,8 @@ vim.opt.termguicolors = true
 
 -- Transparent status line with white text
 vim.cmd [[
-    hi StatusLine guibg=NONE guifg=white
-    hi StatusLineNC guibg=NONE guifg=white
+  hi StatusLine guibg=NONE guifg=white
+  hi StatusLineNC guibg=NONE guifg=white
 ]]
 
 -- Transparent background
@@ -17,3 +17,9 @@ vim.wo.relativenumber = true
 
 -- Remove (~) characters
 vim.opt.fillchars:append({ eob = ' ' })
+
+-- Indentation
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
