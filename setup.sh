@@ -29,6 +29,12 @@ sudo dnf install -y \
   zoxide \
   zsh
 
+# Git
+git config --global init.defaultBranch main
+git config --global core.editor "nvim"
+git config --global user.name "Coaril"
+git config --global user.email "294928377+coaril@users.noreply.github.com"
+
 # Default shell
 sudo usermod --shell "$(which zsh)" "$USER"
 
