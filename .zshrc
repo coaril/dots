@@ -19,3 +19,6 @@ compinit
 
 # Load custom aliases
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
+
+# Plugins
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
