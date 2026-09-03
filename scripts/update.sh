@@ -7,10 +7,11 @@ RESET="\e[0m"
 
 echo -e "[i]${GREEN} Updating system packages:${RESET}\n"
 
-sudo dnf upgrade -y
-sudo dnf autoremove -y
+sudo apt update
+sudo apt upgrade -y
+sudo apt autoremove -y
 
-echo -e "\n[i]${GREEN} Updating user packages:${RESET}"
+echo -e "\n[i]${GREEN} Updating user packages:${RESET}\n"
 
 # sudo flatpak update --system -y
 brew update
