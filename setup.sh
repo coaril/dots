@@ -2,32 +2,30 @@
 
 set -eu
 
-# Update
-sudo dnf upgrade -y
-
-# RPM Fusion
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
 # System packages
-sudo dnf install -y \
-  gcc \
-  util-linux \
-  python3 \
-  rust \
-  cargo \
-  ffmpeg \
-  btop \
-  ufw \
-  curl \
-  eza \
-  fastfetch \
-  git \
-  gh \
-  tmux \
-  upower \
-  vim \
-  zoxide \
+PACKAGES=(
+  # Dev tools
+  build-essential
+  util-linux
+  git
+  vim
+  # Sys Tools
+  ffmpeg
+  curl
+  rsync
+  ufw
   zsh
+  # Extra
+  eza
+  fastfetch
+  tmux
+  btop
+  zoxide
+  # Languages
+  python3
+)
+
+sudo apt install -y "${PACKAGES[@]}"
 
 # Git
 git config --global init.defaultBranch main
@@ -35,17 +33,8 @@ git config --global core.editor "nvim"
 git config --global user.name "Coaril"
 git config --global user.email "294928377+coaril@users.noreply.github.com"
 
-# Default shell
-sudo usermod --shell "$(which zsh)" "$USER"
-
-# Shell plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/zsh-syntax-highlighting"
-
-# Homebrew
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # Brew packages
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install nvm bun neovim uv
 
 # Node
@@ -57,11 +46,18 @@ nvm install --lts
 bun install -g vite npm-check-updates wrangler
 
 # Firewall
-sudo systemctl disable --now firewalld
 sudo ufw --force enable
 sudo systemctl enable --now ufw
 sudo ufw allow ssh
 sudo ufw reload
 
+# Default shell
+sudo usermod --shell "$(which zsh)" "$USER"
+
+# Shell plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/zsh-syntax-highlighting"
+
 # Dotfiles
 cp -rt "$HOME" .tmux.conf .zsh* .config
+mkdir -p "$HOME/Code/Scripts"
+cp -t "$HOME/Code/Scripts" ./scripts/*
