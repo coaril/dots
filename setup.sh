@@ -57,7 +57,17 @@ sudo usermod --shell "$(which zsh)" "$USER"
 # Shell plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/zsh-syntax-highlighting"
 
-# Dotfiles
-cp -rt "$HOME" .tmux.conf .zsh* .config
-mkdir -p "$HOME/Code/Scripts"
-cp -t "$HOME/Code/Scripts" ./scripts/*
+# Copy dots
+cp -rt $HOME .tmux.conf .zsh* .config
+
+# Copy scripts
+mkdir -p $HOME/Code/Scripts
+cp -t $HOME/Code/Scripts ./scripts/*
+
+# Symlinks to ~/.local/bin
+mkdir -p $HOME/.local/bin/
+ln -s $HOME/Code/Scripts/update.sh $HOME/.local/bin/update
+
+# Cleanup
+cd $HOME
+rm .bash*
