@@ -94,7 +94,7 @@ sudo ufw reload
 
 # Default shell
 echo -e "\n[i]${GREEN} Setting default shell:${RESET}\n"
-chsh -s "$(which zsh)"
+sudo usermod -s "$(which zsh)" "$USER" && echo "usermod: shell is $(getent passwd "$USER" | cut -d: -f7)"
 
 # Shell plugins
 if [ ! -d "$HOME/.zsh/zsh-syntax-highlighting" ]; then
