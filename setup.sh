@@ -41,8 +41,29 @@ PACKAGES=(
 echo -e "\n[i]${GREEN} Installing user packages (apt):${RESET}\n"
 sudo apt install -y "${PACKAGES[@]}"
 
-echo -e "\n[i]${GREEN} Installing brew:${RESET}\n"
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Clone repo if running script standalone
+DOTS_DIR="${DOTS_DIR:-$HOME/Code/Repos/dots}"
+REPO_URL="https://github.com/coaril/dots.git"
+
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ] && [ -f "$(dirname "${BASH_SOURCE[0]}")/.tmux.conf" ]; then
+  cd "$(dirname "${BASH_SOURCE[0]}")"
+  DOTS_DIR="$(pwd)"
+elif [ -f "./.tmux.conf" ] && [ -d "./.git" ]; then
+  DOTS_DIR="$(pwd)"
+elif [ -d "$DOTS_DIR/.git" ]; then
+  cd "$DOTS_DIR"
+else
+  echo -e "\n[i]${GREEN} Cloning repository:${RESET}\n"
+  mkdir -p "$(dirname "$DOTS_DIR")"
+  git clone "$REPO_URL" "$DOTS_DIR"
+  cd "$DOTS_DIR"
+fi
+
+# Brew
+if ! command -v brew >/dev/null 2>&1 && [ ! -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  echo -e "\n[i]${GREEN} Installing brew:${RESET}\n"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 echo -e "\n[i]${GREEN} Installing user packages (brew):${RESET}\n"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -76,21 +97,25 @@ echo -e "\n[i]${GREEN} Setting default shell:${RESET}\n"
 sudo usermod --shell "$(which zsh)" "$USER"
 
 # Shell plugins
-echo -e "\n[i]${GREEN} Installing shell plugins:${RESET}\n"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/zsh-syntax-highlighting"
+if [ ! -d "$HOME/.zsh/zsh-syntax-highlighting" ]; then
+  echo -e "\n[i]${GREEN} Installing shell plugins:${RESET}\n"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/zsh-syntax-highlighting"
+fi
 
 echo -e "\n[i]${GREEN} Finalizing:${RESET}\n"
 
 # Copy dots
-cp -rt $HOME .tmux.conf .zsh* .config .gemini
+cp -vrt $HOME .tmux.conf .zsh* .config .gemini
 
 # Copy scripts
 mkdir -p $HOME/Code/Scripts
-cp -t $HOME/Code/Scripts ./scripts/*
+cp -vt $HOME/Code/Scripts ./scripts/*
 
 # Symlink script copy to ~/.local/bin
 mkdir -p $HOME/.local/bin/
-ln -s $HOME/Code/Scripts/update.sh $HOME/.local/bin/update
+if [ ! -L "$HOME/.local/bin/update" ]; then
+  ln -sf $HOME/Code/Scripts/update.sh $HOME/.local/bin/update
+fi
 
 # Cleanup
 rm -f "$HOME"/.bash* "$HOME"/.profile
