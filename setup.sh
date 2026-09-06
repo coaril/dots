@@ -44,7 +44,6 @@ sudo apt install -y "${PACKAGES[@]}"
 # Clone repo if running script standalone
 DOTS_DIR="${DOTS_DIR:-$HOME/Code/Repos/dots}"
 REPO_URL="https://github.com/coaril/dots.git"
-
 if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ] && [ -f "$(dirname "${BASH_SOURCE[0]}")/.tmux.conf" ]; then
   cd "$(dirname "${BASH_SOURCE[0]}")"
   DOTS_DIR="$(pwd)"
@@ -64,16 +63,9 @@ if ! command -v brew >/dev/null 2>&1 && [ ! -x /home/linuxbrew/.linuxbrew/bin/br
   echo -e "\n[i]${GREEN} Installing brew:${RESET}\n"
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-
 echo -e "\n[i]${GREEN} Installing user packages (brew):${RESET}\n"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install -y nvm bun gh neovim antigravity-cli
-
-# Git
-git config --global init.defaultBranch main
-git config --global core.editor "nvim"
-git config --global user.name "Coaril"
-git config --global user.email "294928377+coaril@users.noreply.github.com"
 
 # Node
 echo -e "\n[i]${GREEN} Installing node:${RESET}\n"
@@ -105,7 +97,7 @@ fi
 echo -e "\n[i]${GREEN} Finalizing:${RESET}\n"
 
 # Copy dots
-cp -vrt $HOME .tmux.conf .zsh* .config .gemini
+cp -vrt $HOME .tmux.conf .zsh* .config .gemini .gitconfig
 
 # Copy scripts
 mkdir -p $HOME/Code/Scripts

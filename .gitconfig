@@ -1,0 +1,7 @@
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[user]
+	name = Coaril
+	email = 294928377+coaril@users.noreply.github.com
