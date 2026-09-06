@@ -67,7 +67,7 @@ fi
 
 echo -e "\n[i]${GREEN} Installing user packages (brew):${RESET}\n"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew install nvm bun gh neovim antigravity-cli
+brew install -y nvm bun gh neovim antigravity-cli
 
 # Git
 git config --global init.defaultBranch main
