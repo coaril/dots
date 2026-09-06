@@ -41,6 +41,13 @@ PACKAGES=(
 echo -e "\n[i]${GREEN} Installing user packages (apt):${RESET}\n"
 sudo apt install -y "${PACKAGES[@]}"
 
+echo -e "\n[i]${GREEN} Installing brew:${RESET}\n"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo -e "\n[i]${GREEN} Installing user packages (brew):${RESET}\n"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+brew install nvm bun gh neovim antigravity-cli
+
 # Git
 git config --global init.defaultBranch main
 git config --global core.editor "nvim"
@@ -75,18 +82,17 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh/z
 echo -e "\n[i]${GREEN} Finalizing:${RESET}\n"
 
 # Copy dots
-cp -rt $HOME .tmux.conf .zsh* .config
+cp -rt $HOME .tmux.conf .zsh* .config .gemini
 
 # Copy scripts
 mkdir -p $HOME/Code/Scripts
 cp -t $HOME/Code/Scripts ./scripts/*
 
-# Symlinks to ~/.local/bin
+# Symlink script copy to ~/.local/bin
 mkdir -p $HOME/.local/bin/
 ln -s $HOME/Code/Scripts/update.sh $HOME/.local/bin/update
 
 # Cleanup
-cd $HOME
-rm -f .bash* .profile
+rm -f "$HOME"/.bash* "$HOME"/.profile
 
 echo -e "\n[i]${GREEN} Done.${RESET}"
